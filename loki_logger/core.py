@@ -2,6 +2,7 @@ import logging
 import logging_loki
 from multiprocessing import Queue
 from typing import Optional, Dict, Any
+import atexit
 
 
 class loki_logger:
@@ -23,21 +24,32 @@ class loki_logger:
         self._handler   = None
         
         self._setup_logger()
-
-    def _setup_logger(self) ->None :
-        self._handler = logging_loki.LokiQueueHandler(
-            Queue(-1),
-            url     = self.loki_url,
-            tags    = self.tags,
-            version = self.version
-            )
         
+        atexit.register(self._cleanup)
+
+    def _setup_logger(self):
+        self.queue = Queue(-1)
+        self._handler = logging.handlers.QueueHandler(self.queue)
+        self.handler_loki = logging_loki.LokiHandler(
+            url= self.loki_url,
+            tags=self.tags,
+            version="1"
+        )
+        self._listener = logging.handlers.QueueListener(self.queue, self.handler_loki)
+        self._listener.start()
+
         self._logger = logging.getLogger(self.logger_name)
         self._logger.setLevel(self.level)
         
         if not self._logger.handlers:
             self._logger.addHandler(self._handler)
+
             
+    def _cleanup(self):
+        if self._handler:
+            self._handler.flush()
+            self._listener.stop()
+
     @property
     def logger(self) -> logging.Logger:
         return self._logger

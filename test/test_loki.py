@@ -10,7 +10,7 @@ from loki_logger.core import loki_logger
 logger = loki_logger(level=logging.DEBUG, tags={"app": "fastapi", "env":"block"})
 
 logger.info("Info: 1.User logged in", extra={"user_id": 123})
-logger.debug("Debg: 2.Debug info")
+logger.debug("Debug: 2.Debug info")
 logger.error("Error: 3.Something went wrong", extra={"error": "details"})
 logger.warning("Warning: 4.This is a warning")
 logger.critical("Critical: 5.System failure!")
@@ -21,4 +21,3 @@ log_dict = {
 }
 logger.critical(log_dict)
 
-time.sleep(1)
