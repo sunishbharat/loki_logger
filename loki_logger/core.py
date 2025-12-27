@@ -31,9 +31,9 @@ class loki_logger:
         self.queue = Queue(-1)
         self._handler = logging.handlers.QueueHandler(self.queue)
         self.handler_loki = logging_loki.LokiHandler(
-            url= self.loki_url,
-            tags=self.tags,
-            version="1"
+            url     = self.loki_url,
+            tags    = self.tags,
+            version = self.version
         )
         self._listener = logging.handlers.QueueListener(self.queue, self.handler_loki)
         self._listener.start()
