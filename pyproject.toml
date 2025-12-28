@@ -1,0 +1,26 @@
+# loki_logger/pyproject.toml
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loki-logger"
+version = "0.1.0"
+description = "Generic Loki logger with standard Python logging interface"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "python-logging-loki-v2>=1.0.0",
+]
+license = {file = "LICENSE"}
+authors = [{name = "Sunish Bharat"}]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/sunishbharat/loki_logger"
+Repository = "https://github.com/sunishbharat/loki_logger"
+Issues = "https://github.com/sunishbharat/loki_logger/issues"
