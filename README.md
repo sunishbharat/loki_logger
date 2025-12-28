@@ -1,6 +1,13 @@
 ## loki_logger
 Generic logger to support Grafana Loki logging using standard python logging interface.
 
+## Installation
+```
+git clone https://github.com/sunishbharat/loki_logger.git
+cd loki_logger
+pip install -e .
+```
+
 ## Usage
 ```python
 
